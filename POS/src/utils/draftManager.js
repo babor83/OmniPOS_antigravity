@@ -1,5 +1,5 @@
 // Draft Invoice Management with IndexedDB
-const DB_NAME = "pos_next_drafts"
+const DB_NAME = "omnipos_drafts"
 const DB_VERSION = 1
 const STORE_NAME = "invoices"
 

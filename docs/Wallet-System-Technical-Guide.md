@@ -39,7 +39,7 @@ Loyalty Program Enabled → All wallet features automatically activated
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│                         POS NEXT WALLET SYSTEM                          │
+│                            OMNIPOS WALLET SYSTEM                        │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
 │  ┌─────────────┐     ┌─────────────────┐     ┌───────────────────┐     │
@@ -65,8 +65,8 @@ Loyalty Program Enabled → All wallet features automatically activated
 ### File Structure
 
 ```
-pos_next/
-├── pos_next/
+omnipos/
+├── omnipos/
 │   ├── api/
 │   │   ├── wallet.py              # Main wallet API
 │   │   └── customers.py           # Customer hooks (loyalty assignment)
@@ -256,7 +256,7 @@ pos_next/
 Returns available wallet balance for customer.
 
 ```python
-from pos_next.api.wallet import get_customer_wallet_balance
+from omnipos.api.wallet import get_customer_wallet_balance
 
 balance = get_customer_wallet_balance(
     customer="CUST-001",
@@ -270,7 +270,7 @@ balance = get_customer_wallet_balance(
 Returns comprehensive wallet info for POS frontend.
 
 ```python
-from pos_next.api.wallet import get_wallet_info
+from omnipos.api.wallet import get_wallet_info
 
 info = get_wallet_info(
     customer="CUST-001",
@@ -292,7 +292,7 @@ info = get_wallet_info(
 Gets existing wallet or creates new one.
 
 ```python
-from pos_next.api.wallet import get_or_create_wallet
+from omnipos.api.wallet import get_or_create_wallet
 
 wallet = get_or_create_wallet(
     customer="CUST-001",
@@ -305,7 +305,7 @@ wallet = get_or_create_wallet(
 Creates manual wallet credit (admin use).
 
 ```python
-from pos_next.api.wallet import create_manual_wallet_credit
+from omnipos.api.wallet import create_manual_wallet_credit
 
 transaction_name = create_manual_wallet_credit(
     customer="CUST-001",
@@ -322,7 +322,7 @@ transaction_name = create_manual_wallet_credit(
 Creates wallet credit transaction.
 
 ```python
-from pos_next.pos_next.doctype.wallet_transaction.wallet_transaction import create_wallet_credit
+from omnipos.omnipos.doctype.wallet_transaction.wallet_transaction import create_wallet_credit
 
 transaction = create_wallet_credit(
     wallet="CUST-001-WALLET",
@@ -342,14 +342,14 @@ transaction = create_wallet_credit(
 ```python
 doc_events = {
     "Customer": {
-        "after_insert": "pos_next.api.customers.auto_assign_loyalty_program"
+        "after_insert": "omnipos.api.customers.auto_assign_loyalty_program"
     },
     "Sales Invoice": {
         "validate": [
-            "pos_next.api.wallet.validate_wallet_payment"
+            "omnipos.api.wallet.validate_wallet_payment"
         ],
         "on_submit": [
-            "pos_next.api.wallet.process_loyalty_to_wallet"
+            "omnipos.api.wallet.process_loyalty_to_wallet"
         ]
     }
 }
@@ -370,7 +370,7 @@ doc_events = {
 ### Prerequisites
 
 1. ERPNext with Loyalty Program module
-2. POS Next installed
+2. omniPOS installed
 3. Chart of Accounts configured
 
 ### Step-by-Step Setup

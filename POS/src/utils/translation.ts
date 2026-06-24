@@ -1,5 +1,5 @@
 /**
- * @fileoverview Translation system for POS Next with offline support.
+ * @fileoverview Translation system for omniPOS with offline support.
  *
  * This module provides:
  * - Vue plugin for global `__()` translation function
@@ -126,7 +126,7 @@ const getLocale = (): string => {
 
   return (
     (window as any)?.frappe?.boot?.lang?.toLowerCase() ||
-    window.localStorage?.getItem("pos_next_language")?.toLowerCase() ||
+    window.localStorage?.getItem("omnipos_language")?.toLowerCase() ||
     FALLBACK_LOCALE
   )
 }
@@ -161,7 +161,7 @@ function applyMessages(messages: Messages) {
  * @returns Translation dictionary or null on failure
  */
 async function requestTranslations() {
-  const messages = await call("pos_next.api.localization.get_app_translations", {})
+  const messages = await call("omnipos.api.localization.get_app_translations", {})
   return (messages as Messages) || null
 }
 
@@ -213,7 +213,7 @@ async function loadLocale(locale: string, options: LoadOptions = {}) {
  */
 function fallbackFetch(locale?: string) {
   createResource({
-    url: "pos_next.api.localization.get_app_translations",
+    url: "omnipos.api.localization.get_app_translations",
     method: "GET",
     cache: "translations",
     auto: true,

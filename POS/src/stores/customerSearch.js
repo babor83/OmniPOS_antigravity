@@ -215,7 +215,7 @@ export const useCustomerSearchStore = defineStore("customerSearch", () => {
 				log.debug(`Loaded ${cachedCustomers.length} customers from cache`)
 			} else if (!isOffline()) {
 				// Fetch from server if cache is empty and online
-				const response = await call("pos_next.api.customers.get_customers", {
+				const response = await call("omnipos.api.customers.get_customers", {
 					pos_profile: posProfile,
 					search_term: "",
 					start: 0,

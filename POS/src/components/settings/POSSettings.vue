@@ -476,7 +476,7 @@ const operationsSubsectionClasses = computed(() => getSubsectionClasses("teal"))
 
 // Resources
 const warehousesResource = createResource({
-	url: "pos_next.api.pos_profile.get_warehouses",
+	url: "omnipos.api.pos_profile.get_warehouses",
 	makeParams() {
 		return {
 			pos_profile: props.posProfile,
@@ -496,7 +496,7 @@ const warehousesResource = createResource({
 const originalAllowNegativeStock = ref(null)
 
 const settingsResource = createResource({
-	url: "pos_next.pos_next.doctype.pos_settings.pos_settings.get_pos_settings",
+	url: "omnipos.omnipos.doctype.pos_settings.pos_settings.get_pos_settings",
 	makeParams() {
 		return {
 			pos_profile: props.posProfile,
@@ -579,7 +579,7 @@ async function loadSettings() {
 	try {
 		// Load warehouses first using call API directly
 		const warehousesData = await call(
-			"pos_next.api.pos_profile.get_warehouses",
+			"omnipos.api.pos_profile.get_warehouses",
 			{
 				pos_profile: props.posProfile,
 			},
@@ -619,7 +619,7 @@ async function saveSettings() {
 	try {
 		// Save POS Settings (without warehouse)
 		const result = await call(
-			"pos_next.pos_next.doctype.pos_settings.pos_settings.update_pos_settings",
+			"omnipos.omnipos.doctype.pos_settings.pos_settings.update_pos_settings",
 			{
 				pos_profile: props.posProfile,
 				settings: settings.value,
@@ -637,7 +637,7 @@ async function saveSettings() {
 		// Update warehouse in POS Profile if changed
 		if (warehouseChanged && selectedWarehouse.value) {
 			const warehouseResult = await call(
-				"pos_next.api.pos_profile.update_warehouse",
+				"omnipos.api.pos_profile.update_warehouse",
 				{
 					pos_profile: props.posProfile,
 					warehouse: selectedWarehouse.value,

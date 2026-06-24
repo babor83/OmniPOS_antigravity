@@ -399,7 +399,7 @@ async function loadVariantsFromCache() {
 
 // Resource for fetching variants from API
 const variantsResource = createResource({
-	url: "pos_next.api.items.get_item_variants",
+	url: "omnipos.api.items.get_item_variants",
 	makeParams() {
 		return {
 			template_item: props.item?.item_code,

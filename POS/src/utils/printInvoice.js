@@ -8,7 +8,7 @@ const log = logger.create('PrintInvoice')
  * @param {Object} invoiceData - The invoice document data
  * @param {string} printFormat - The print format name (optional)
  * @param {string} letterhead - The letterhead name (optional)
- * @note Use "POS Next Receipt" format for thermal printer (80mm) or configure via POS Profile
+ * @note Use "omniPOS Receipt" format for thermal printer (80mm) or configure via POS Profile
  */
 export async function printInvoice(
 	invoiceData,
@@ -21,7 +21,7 @@ export async function printInvoice(
 		}
 
 		const doctype = invoiceData.doctype || "Sales Invoice"
-		const format = printFormat || "POS Next Receipt"
+		const format = printFormat || "omniPOS Receipt"
 
 		// Build PDF print URL
 		const params = new URLSearchParams({
@@ -275,7 +275,7 @@ export function printInvoiceCustom(invoiceData) {
 			<div class="receipt">
 				<!-- Header -->
 				<div class="header">
-					<div class="company-name">${invoiceData.company || "POS Next"}</div>
+					<div class="company-name">${invoiceData.company || "omniPOS"}</div>
 					<div style="font-size: 12px;">${__('TAX INVOICE')}</div>
 				</div>
 
@@ -489,7 +489,7 @@ export async function printInvoiceByName(
 ) {
 	try {
 		// Fetch the invoice document using proper POS API endpoint
-		const invoiceDoc = await call("pos_next.api.invoices.get_invoice", {
+		const invoiceDoc = await call("omnipos.api.invoices.get_invoice", {
 			invoice_name: invoiceName,
 		})
 

@@ -1,15 +1,15 @@
-# POS Next - Version Control System
+# omniPOS - Version Control System
 
-This document explains the version control mechanism implemented in POS Next.
+This document explains the version control mechanism implemented in omniPOS.
 
 ## Overview
 
-POS Next uses a comprehensive version control system that tracks both application versions and build versions for effective cache busting and version management.
+omniPOS uses a comprehensive version control system that tracks both application versions and build versions for effective cache busting and version management.
 
 ## Version Types
 
 ### 1. Application Version
-- Defined in: `pos_next/__init__.py`
+- Defined in: `omnipos/__init__.py`
 - Format: Semantic Versioning (MAJOR.MINOR.PATCH)
 - Example: `1.0.0`
 - Used for: Release tracking, compatibility checks
@@ -18,7 +18,7 @@ POS Next uses a comprehensive version control system that tracks both applicatio
 - Generated during: Frontend build process
 - Format: Timestamp (milliseconds since epoch)
 - Example: `1730043123456`
-- Stored in: `pos_next/public/pos/version.json`
+- Stored in: `omnipos/public/pos/version.json`
 - Used for: Cache busting, ensuring users get latest assets
 
 ## How It Works
@@ -33,7 +33,7 @@ POS Next uses a comprehensive version control system that tracks both applicatio
    - Writes to `version.json` after build completes
    - Includes version, timestamp, and build date
 
-2. **Version File** (`pos_next/public/pos/version.json`):
+2. **Version File** (`omnipos/public/pos/version.json`):
    ```json
    {
      "version": "1730043123456",
@@ -42,15 +42,15 @@ POS Next uses a comprehensive version control system that tracks both applicatio
    }
    ```
 
-3. **Backend Integration** (`pos_next/utils.py`):
+3. **Backend Integration** (`omnipos/utils.py`):
    - `get_build_version()` - Returns current build version
    - `get_app_version()` - Returns application version
    - Fallback strategies for missing version files
 
-4. **Hooks Integration** (`pos_next/hooks.py`):
+4. **Hooks Integration** (`omnipos/hooks.py`):
    ```python
    _asset_version = get_build_version()
-   # app_include_js = f"/assets/pos_next/js/app.js?v={_asset_version}"
+   # app_include_js = f"/assets/omnipos/js/app.js?v={_asset_version}"
    ```
 
 ## Version Bumping
@@ -60,7 +60,7 @@ POS Next uses a comprehensive version control system that tracks both applicatio
 Use the provided script to bump versions:
 
 ```bash
-cd /home/ubuntu/frappe-bench/apps/pos_next
+cd /home/ubuntu/frappe-bench/apps/omnipos
 
 # Bump patch version (1.0.0 → 1.0.1)
 ./scripts/version-bump.sh patch
@@ -73,7 +73,7 @@ cd /home/ubuntu/frappe-bench/apps/pos_next
 ```
 
 The script will:
-1. Update `pos_next/__init__.py`
+1. Update `omnipos/__init__.py`
 2. Update `POS/package.json`
 3. Display next steps for committing and tagging
 
@@ -103,7 +103,7 @@ POS_NEXT_BUILD_VERSION=1.2.3 yarn build
 
 3. **Verify Build**:
    ```bash
-   cat ../pos_next/public/pos/version.json
+   cat ../omnipos/public/pos/version.json
    ```
 
 4. **Commit Changes**:
@@ -146,17 +146,17 @@ Check current build version:
 ```bash
 # Via bench console
 cd /home/ubuntu/frappe-bench
-bench --site nexus.local execute pos_next.utils.get_build_version
+bench --site nexus.local execute omnipos.utils.get_build_version
 
 # Via Python
-python3 -c "import sys; sys.path.insert(0, 'apps/pos_next'); from pos_next.utils import get_build_version; print(get_build_version())"
+python3 -c "import sys; sys.path.insert(0, 'apps/omnipos'); from omnipos.utils import get_build_version; print(get_build_version())"
 ```
 
 ## File Structure
 
 ```
-pos_next/
-├── pos_next/
+omnipos/
+├── omnipos/
 │   ├── __init__.py              # App version (__version__ = "1.0.0")
 │   ├── hooks.py                 # Hooks with version integration
 │   ├── utils.py                 # Version utility functions
@@ -176,7 +176,7 @@ pos_next/
 
 1. **Check version.json exists**:
    ```bash
-   ls -la pos_next/public/pos/version.json
+   ls -la omnipos/public/pos/version.json
    ```
 
 2. **Rebuild frontend**:
@@ -209,7 +209,7 @@ If frontend and backend versions don't match:
 ### Python API
 
 ```python
-from pos_next.utils import get_build_version, get_app_version
+from omnipos.utils import get_build_version, get_app_version
 
 # Get current build version for cache busting
 build_ver = get_build_version()  # Returns: "1730043123456"
@@ -239,10 +239,10 @@ console.log(__BUILD_VERSION__)  // "1730043123456"
 - Vite plugin generates version.json
 - Backend utility functions for version retrieval
 - Cache busting through query parameters
-- **Location**: POS Next uses `public/pos/` for build assets
-- **Fallback**: POS Next checks manifest.webmanifest mtime as additional fallback
-- **Script**: POS Next includes automated version bump script
-- **Documentation**: POS Next has comprehensive version management guide
+- **Location**: omniPOS uses `public/pos/` for build assets
+- **Fallback**: omniPOS checks manifest.webmanifest mtime as additional fallback
+- **Script**: omniPOS includes automated version bump script
+- **Documentation**: omniPOS has comprehensive version management guide
 
 ## Future Enhancements
 

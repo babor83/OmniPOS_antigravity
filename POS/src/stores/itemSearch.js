@@ -41,7 +41,7 @@ async function cacheVariantsForTemplates(items, posProfile) {
 
 		const batchPromises = batch.map(async (template) => {
 			try {
-				const response = await call("pos_next.api.items.get_item_variants", {
+				const response = await call("omnipos.api.items.get_item_variants", {
 					template_item: template.item_code,
 					pos_profile: posProfile,
 				})
@@ -104,7 +104,7 @@ async function cacheBatchSerialForItems(items, warehouse) {
 		const batchCodes = itemCodes.slice(i, i + BATCH_SIZE)
 
 		try {
-			const response = await call("pos_next.api.items.get_batch_serial_data_for_items", {
+			const response = await call("omnipos.api.items.get_batch_serial_data_for_items", {
 				item_codes: JSON.stringify(batchCodes),
 				warehouse: warehouse,
 			})
@@ -373,7 +373,7 @@ export const useItemSearchStore = defineStore("itemSearch", () => {
 
 	// Resources (for server-side operations)
 	const itemGroupsResource = createResource({
-		url: "pos_next.api.items.get_item_groups",
+		url: "omnipos.api.items.get_item_groups",
 		makeParams() {
 			return {
 				pos_profile: posProfile.value,
@@ -390,7 +390,7 @@ export const useItemSearchStore = defineStore("itemSearch", () => {
 	})
 
 	const searchByBarcodeResource = createResource({
-		url: "pos_next.api.items.search_by_barcode",
+		url: "omnipos.api.items.search_by_barcode",
 		auto: false,
 	})
 
@@ -774,7 +774,7 @@ export const useItemSearchStore = defineStore("itemSearch", () => {
 
 			// Start item count fetch early (only used in Strategy C, but cheap to fire now)
 			// Skip when offline — count can't be fetched without network
-			const countPromise = !offline ? call("pos_next.api.items.get_items_count", {
+			const countPromise = !offline ? call("omnipos.api.items.get_items_count", {
 				pos_profile: profile,
 			}).then(r => r?.message ?? r ?? 0).catch(countErr => {
 				log.warn("Could not fetch item count:", countErr.message)
@@ -978,7 +978,7 @@ export const useItemSearchStore = defineStore("itemSearch", () => {
 				log.debug(`Fetching ${unfilteredLimit} items (no filters, ${isSmallCatalog ? 'small catalog' : 'paginated'})`)
 
 				// Fetch first batch for fast initial render
-				const response = await call("pos_next.api.items.get_items", {
+				const response = await call("omnipos.api.items.get_items", {
 					pos_profile: profile,
 					search_term: "",
 					item_group: null, // No filter - get items from all groups
@@ -1066,7 +1066,7 @@ export const useItemSearchStore = defineStore("itemSearch", () => {
 		log.debug(`Fetching first ${effectiveLimit} items from group: ${firstGroup}`)
 
 		try {
-			const response = await call("pos_next.api.items.get_items", {
+			const response = await call("omnipos.api.items.get_items", {
 				pos_profile: profile,
 				search_term: "",
 				item_group: firstGroup, // Server-side filter via DB index
@@ -1102,7 +1102,7 @@ export const useItemSearchStore = defineStore("itemSearch", () => {
 		try {
 			// Use bulk endpoint for multiple groups, or single endpoint for one
 			if (groupsToFetch.length > 1) {
-				const response = await call("pos_next.api.items.get_items_bulk", {
+				const response = await call("omnipos.api.items.get_items_bulk", {
 					pos_profile: profile,
 					item_groups: JSON.stringify(groupsToFetch),
 					start: start,
@@ -1110,7 +1110,7 @@ export const useItemSearchStore = defineStore("itemSearch", () => {
 				})
 				return response?.message || response || []
 			} else {
-				const response = await call("pos_next.api.items.get_items", {
+				const response = await call("omnipos.api.items.get_items", {
 					pos_profile: profile,
 					search_term: "",
 					item_group: itemGroup,
@@ -1182,7 +1182,7 @@ export const useItemSearchStore = defineStore("itemSearch", () => {
 					pageSize,
 				)
 			} else {
-				const response = await call("pos_next.api.items.get_items", {
+				const response = await call("omnipos.api.items.get_items", {
 					pos_profile: posProfile.value,
 					search_term: "",
 					item_group: null,
@@ -1271,7 +1271,7 @@ export const useItemSearchStore = defineStore("itemSearch", () => {
 				)
 			} else {
 				// "All Items" tab — fetch next batch without group filter
-				const response = await call("pos_next.api.items.get_items", {
+				const response = await call("omnipos.api.items.get_items", {
 					pos_profile: posProfile.value,
 					search_term: "",
 					item_group: null,
@@ -1369,7 +1369,7 @@ export const useItemSearchStore = defineStore("itemSearch", () => {
 		let totalServerItems = 0
 		try {
 			if (myGeneration !== syncGeneration) return
-			const countResponse = await call("pos_next.api.items.get_items_count", {
+			const countResponse = await call("omnipos.api.items.get_items_count", {
 				pos_profile: profile,
 				include_variants: 1,
 			})
@@ -1396,7 +1396,7 @@ export const useItemSearchStore = defineStore("itemSearch", () => {
 						const currentGroup = groupsToSync[groupIndex]
 						log.debug(`Syncing ${currentGroup} at offset ${groupOffset}`)
 
-						response = await call("pos_next.api.items.get_items", {
+						response = await call("omnipos.api.items.get_items", {
 							pos_profile: profile,
 							search_term: "",
 							item_group: currentGroup,
@@ -1418,7 +1418,7 @@ export const useItemSearchStore = defineStore("itemSearch", () => {
 					} else {
 						// UNFILTERED SYNC: Fetch all items with pagination
 						// Use syncOffset to skip items already loaded in initial fetch
-						response = await call("pos_next.api.items.get_items", {
+						response = await call("omnipos.api.items.get_items", {
 							pos_profile: profile,
 							search_term: "",
 							item_group: null,
@@ -1582,7 +1582,7 @@ export const useItemSearchStore = defineStore("itemSearch", () => {
 
 					// Now search server in background for fresh results
 					log.debug(`Searching server for: "${term}"`)
-					const response = await call("pos_next.api.items.get_items", {
+					const response = await call("omnipos.api.items.get_items", {
 						pos_profile: posProfile.value,
 						search_term: term,
 						item_group: selectedItemGroup.value,
@@ -1814,7 +1814,7 @@ export const useItemSearchStore = defineStore("itemSearch", () => {
 				// ONLINE PATH: Fetch from server
 				// ================================================================
 				// Fetch first page + total count in parallel for instant pagination
-				const countPromise = call("pos_next.api.items.get_items_count", {
+				const countPromise = call("omnipos.api.items.get_items_count", {
 					pos_profile: posProfile.value,
 					item_group: group || undefined,
 				}).catch(err => {
@@ -1829,7 +1829,7 @@ export const useItemSearchStore = defineStore("itemSearch", () => {
 					log.info(`Loaded ${items.length} items for group: ${group}`)
 				} else {
 					// "All Items" tab: fetch first page (no group filter)
-					const response = await call("pos_next.api.items.get_items", {
+					const response = await call("omnipos.api.items.get_items", {
 						pos_profile: posProfile.value,
 						search_term: "",
 						item_group: null,
@@ -1942,7 +1942,7 @@ export const useItemSearchStore = defineStore("itemSearch", () => {
 
 		try {
 			// Single API call returns EVERYTHING - no need for separate loadItemGroups()
-			const data = await call("pos_next.api.pos_profile.get_pos_profile_data", {
+			const data = await call("omnipos.api.pos_profile.get_pos_profile_data", {
 				pos_profile: profile
 			})
 

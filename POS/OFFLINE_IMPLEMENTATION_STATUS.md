@@ -1,4 +1,4 @@
-# Offline Implementation Status - POS Next
+# Offline Implementation Status - omniPOS
 
 ## Current Status: ⚠️ INCOMPLETE - POS Cannot Work Without Backend
 
@@ -33,7 +33,7 @@ The POS application currently **does not work when the backend is offline** beca
    - Updates local cache with fresh data
    - Clears synced items from queue
 
-### ❌ POS Next - Currently NOT Offline Capable
+### ❌ omniPOS - Currently NOT Offline Capable
 
 **Current Implementation:**
 1. **No Pre-Loading:**
@@ -82,7 +82,7 @@ await setSetting('cache_ready', true)      // Mark as ready
 ```javascript
 // In POSSale.vue - tries to fetch from server every time
 const itemsResource = createResource({
-	url: 'pos_next.api.invoices.get_items',
+	url: 'omnipos.api.invoices.get_items',
 	// This FAILS when offline!
 })
 ```
@@ -289,7 +289,7 @@ export function useItems(posProfile) {
 Wherever you see:
 ```javascript
 const itemsResource = createResource({
-	url: 'pos_next.api.invoices.get_items',
+	url: 'omnipos.api.invoices.get_items',
 	// ...
 })
 ```

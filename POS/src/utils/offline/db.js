@@ -5,7 +5,7 @@ import { logger } from "../logger"
 const log = logger.create("OfflineDB")
 
 /**
- * @fileoverview IndexedDB persistence layer for POS Next offline functionality.
+ * @fileoverview IndexedDB persistence layer for omniPOS offline functionality.
  *
  * This module provides:
  * - Auto-versioned Dexie database with schema migration
@@ -20,7 +20,7 @@ const log = logger.create("OfflineDB")
  */
 
 /** @type {Dexie} Main database instance */
-export const db = new Dexie("pos_next_offline")
+export const db = new Dexie("omnipos_offline")
 
 /**
  * Database schema definition.
@@ -108,17 +108,17 @@ function getSchemaHash(schema) {
  */
 function getSchemaVersion() {
 	const schemaHash = getSchemaHash(CURRENT_SCHEMA)
-	const storedHash = localStorage.getItem("pos_next_schema_hash")
+	const storedHash = localStorage.getItem("omnipos_schema_hash")
 	const storedVersion = Number.parseInt(
-		localStorage.getItem("pos_next_schema_version") || "1",
+		localStorage.getItem("omnipos_schema_version") || "1",
 	)
 
 	if (storedHash !== schemaHash.toString()) {
 		// Schema changed, increment version
 		const newVersion = storedVersion + 1
 		log.info(`Schema changed detected. Upgrading from v${storedVersion} to v${newVersion}`)
-		localStorage.setItem("pos_next_schema_hash", schemaHash.toString())
-		localStorage.setItem("pos_next_schema_version", newVersion.toString())
+		localStorage.setItem("omnipos_schema_hash", schemaHash.toString())
+		localStorage.setItem("omnipos_schema_version", newVersion.toString())
 		return newVersion
 	}
 
@@ -138,7 +138,7 @@ db.version(schemaVersion).stores(CURRENT_SCHEMA)
 export const initDB = async () => {
 	try {
 		await db.open()
-		log.success("POS Next offline database initialized")
+		log.success("omniPOS offline database initialized")
 		return true
 	} catch (error) {
 		log.error("Failed to initialize offline database:", error)
@@ -176,7 +176,7 @@ export const checkDBHealth = async () => {
 			) {
 				log.warn("Database appears corrupted, recreating...")
 				try {
-					await Dexie.delete("pos_next_offline")
+					await Dexie.delete("omnipos_offline")
 					await db.open()
 					log.success("Database recreated successfully")
 					return true
@@ -295,11 +295,11 @@ export const nukeDatabase = async () => {
 		}
 
 		// Delete entire database
-		await Dexie.delete("pos_next_offline")
+		await Dexie.delete("omnipos_offline")
 
 		// Clear localStorage schema tracking
-		localStorage.removeItem("pos_next_schema_hash")
-		localStorage.removeItem("pos_next_schema_version")
+		localStorage.removeItem("omnipos_schema_hash")
+		localStorage.removeItem("omnipos_schema_version")
 
 		// Recreate database
 		await db.open()
@@ -327,7 +327,7 @@ export const clearBrowserCache = () => {
 		const keysToRemove = []
 		for (let i = 0; i < localStorage.length; i++) {
 			const key = localStorage.key(i)
-			if (key?.startsWith('pos_next_') || key?.startsWith('frappe_')) {
+			if (key?.startsWith('omnipos_') || key?.startsWith('frappe_')) {
 				keysToRemove.push(key)
 			}
 		}
@@ -341,7 +341,7 @@ export const clearBrowserCache = () => {
 		const sessionKeys = []
 		for (let i = 0; i < sessionStorage.length; i++) {
 			const key = sessionStorage.key(i)
-			if (key?.startsWith('pos_next_') || key?.startsWith('frappe_')) {
+			if (key?.startsWith('omnipos_') || key?.startsWith('frappe_')) {
 				sessionKeys.push(key)
 			}
 		}

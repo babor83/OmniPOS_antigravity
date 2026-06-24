@@ -22,7 +22,7 @@ export function useSalesPersons(posProfile) {
 
 	// Resource
 	const salesPersonsResource = createResource({
-		url: "pos_next.api.pos_profile.get_sales_persons",
+		url: "omnipos.api.pos_profile.get_sales_persons",
 		makeParams() {
 			return {
 				pos_profile: posProfile.value,

@@ -1,6 +1,6 @@
-# POS Next Startup Sequence
+# omniPOS Startup Sequence
 
-This document describes the initialization flow of the POS Next frontend application, from initial page load to fully interactive state.
+This document describes the initialization flow of the omniPOS frontend application, from initial page load to fully interactive state.
 
 ## Overview
 
@@ -119,7 +119,7 @@ CSRF token initialization and user authentication run **in parallel** for faster
 
 ### 4. Bootstrap Data Preload
 
-**Files:** `POS/src/stores/bootstrap.js`, `pos_next/api/bootstrap.py`
+**Files:** `POS/src/stores/bootstrap.js`, `omnipos/api/bootstrap.py`
 
 After authentication, the app preloads essential data in a single API call instead of multiple sequential calls.
 
@@ -132,7 +132,7 @@ After authentication, the app preloads essential data in a single API call inste
 │    "locale": "ar",              // User's language           │
 │    "shift": { ... },            // Active POS shift          │
 │    "pos_profile": { ... },      // POS Profile settings      │
-│    "pos_settings": { ... },     // POS Next settings         │
+│    "pos_settings": { ... },     // omniPOS settings         │
 │    "payment_methods": [...]     // Available payments        │
 │  }                                                           │
 └──────────────────────────────────────────────────────────────┘
@@ -279,4 +279,4 @@ Each phase has graceful fallbacks:
 - `POS/src/stores/bootstrap.js` - Bootstrap store
 - `POS/src/data/session.js` - Session management
 - `POS/src/data/user.js` - User resource
-- `pos_next/api/bootstrap.py` - Bootstrap API endpoint
+- `omnipos/api/bootstrap.py` - Bootstrap API endpoint

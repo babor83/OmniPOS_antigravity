@@ -1,10 +1,10 @@
 # Offers and Promotions System
 
-This document explains how POS Next integrates with ERPNext's Pricing Rules and Promotional Schemes to automatically apply discounts.
+This document explains how omniPOS integrates with ERPNext's Pricing Rules and Promotional Schemes to automatically apply discounts.
 
 ## Overview
 
-POS Next supports automatic offer application based on cart contents. When items are added to the cart, the system:
+omniPOS supports automatic offer application based on cart contents. When items are added to the cart, the system:
 
 1. Checks eligibility against available Pricing Rules/Promotional Schemes
 2. Automatically applies eligible offers
@@ -64,7 +64,7 @@ This allows ERPNext to accumulate quantities across different items in the same 
 
 ### Pricing Rule Generated
 
-When you save a Promotional Scheme, ERPNext automatically creates underlying Pricing Rules (e.g., `PRLE-0003`). POS Next works with these generated rules.
+When you save a Promotional Scheme, ERPNext automatically creates underlying Pricing Rules (e.g., `PRLE-0003`). omniPOS works with these generated rules.
 
 ## Frontend Architecture
 
@@ -107,7 +107,7 @@ Cart Change → Debounce (150ms) → processOffersInternal()
 
 ### `apply_offers(invoice_data, selected_offers)`
 
-Located in `pos_next/api/invoices.py`
+Located in `omnipos/api/invoices.py`
 
 ```python
 @frappe.whitelist()
@@ -229,7 +229,7 @@ This happens when:
 ### Backend Testing
 
 ```python
-from pos_next.api.invoices import apply_offers
+from omnipos.api.invoices import apply_offers
 
 result = apply_offers({
     "doctype": "Sales Invoice",
@@ -252,5 +252,5 @@ print(result)
   - `POS/src/components/sale/OffersDialog.vue` - Offers UI
 
 - Backend:
-  - `pos_next/api/invoices.py` - `apply_offers()` API
+  - `omnipos/api/invoices.py` - `apply_offers()` API
   - ERPNext: `erpnext/accounts/doctype/pricing_rule/` - Pricing engine

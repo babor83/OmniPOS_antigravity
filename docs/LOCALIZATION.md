@@ -1,6 +1,6 @@
 # Language Settings
 
-This guide explains how to configure languages in POS Next.
+This guide explains how to configure languages in omniPOS.
 
 ## Configuring Allowed Languages
 
@@ -17,7 +17,7 @@ You can control which languages are available in the POS language switcher throu
 
 ### Available Languages
 
-POS Next supports the following languages out of the box:
+omniPOS supports the following languages out of the box:
 
 | Language | Code | Direction |
 |----------|------|-----------|

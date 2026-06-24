@@ -109,7 +109,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Permissions & Roles**
   - Added new roles and permissions for system and sales managers
   - Correct POS Settings permissions with create for managers
-  - Moved POSNext Cashier permissions from fixtures to DocType definitions
+  - Moved omniPOS Cashier permissions from fixtures to DocType definitions
 
 - **Payment Improvements**
   - Added exact amount mode for payment processing
@@ -176,8 +176,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.13.0] - 2026-01-07
 
 ### Added
-- **POSNext Cashier Role & Permissions**
-  - Created dedicated POSNext Cashier role for POS operations
+- **omniPOS Cashier Role & Permissions**
+  - Created dedicated omniPOS Cashier role for POS operations
   - Added custom permissions for Customer, Bin, Item, and Warehouse doctypes
   - Proper role-based access control for POS users
 
@@ -298,7 +298,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Improved UOM selection UI and cart item handling
 
 - **POS Profile Handling**
-  - User company check utility moved to pos_next utilities
+  - User company check utility moved to omnipos utilities
   - Refactored payment, user, item group, and customer group handling in profile update
   - Simplified profile creation with enhanced parameter parsing
   - Cleaned up imports in POS profile API
@@ -382,7 +382,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Arabic Translations**
   - Fixed truncated translation key for cart requirements message
-  - Keep POS Next brand name consistent across translations
+  - Keep omniPOS brand name consistent across translations
   - Fixed "Apply Coupon" and "serials" translations for clarity
 
 ## [1.10.0] - 2025-11-28
@@ -809,7 +809,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **CSRF Token Synchronization**
   - Implemented CSRF token sync with offline worker for enhanced security
   - Ensures secure API calls from background workers
-- **POSNext Workspace Configuration**
+- **omniPOS Workspace Configuration**
   - Added workspace links for enhanced navigation
   - Improved accessibility to POS features
 
@@ -947,25 +947,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Shift management
 - Stock tracking
 
-[Unreleased]: https://github.com/BrainWise-DEV/POSNext/compare/v1.15.0...HEAD
-[1.15.0]: https://github.com/BrainWise-DEV/POSNext/compare/v1.14.0...v1.15.0
-[1.14.0]: https://github.com/BrainWise-DEV/POSNext/compare/v1.13.0...v1.14.0
-[1.13.0]: https://github.com/BrainWise-DEV/POSNext/compare/v1.12.0...v1.13.0
-[1.12.0]: https://github.com/BrainWise-DEV/POSNext/compare/v1.11.0...v1.12.0
-[1.11.0]: https://github.com/BrainWise-DEV/POSNext/compare/v1.10.0...v1.11.0
-[1.10.0]: https://github.com/BrainWise-DEV/POSNext/compare/v1.9.0...v1.10.0
-[1.9.0]: https://github.com/BrainWise-DEV/POSNext/compare/v1.8.0...v1.9.0
-[1.8.0]: https://github.com/BrainWise-DEV/POSNext/compare/v1.7.1...v1.8.0
-[1.7.1]: https://github.com/BrainWise-DEV/POSNext/compare/v1.7.0...v1.7.1
-[1.7.0]: https://github.com/BrainWise-DEV/POSNext/compare/v1.6.1...v1.7.0
-[1.6.1]: https://github.com/BrainWise-DEV/POSNext/compare/v1.6.0...v1.6.1
-[1.6.0]: https://github.com/BrainWise-DEV/POSNext/compare/v1.5.0...v1.6.0
-[1.5.0]: https://github.com/BrainWise-DEV/POSNext/compare/v1.4.0...v1.5.0
-[1.4.0]: https://github.com/BrainWise-DEV/POSNext/compare/v1.3.0...v1.4.0
-[1.3.0]: https://github.com/BrainWise-DEV/POSNext/compare/v1.2.0...v1.3.0
-[1.2.0]: https://github.com/BrainWise-DEV/POSNext/compare/v1.1.1...v1.2.0
-[1.1.1]: https://github.com/BrainWise-DEV/POSNext/compare/v1.1.0...v1.1.1
-[1.1.0]: https://github.com/BrainWise-DEV/POSNext/compare/v1.0.2...v1.1.0
-[1.0.2]: https://github.com/BrainWise-DEV/POSNext/compare/v1.0.1...v1.0.2
-[1.0.1]: https://github.com/BrainWise-DEV/POSNext/compare/v1.0.0...v1.0.1
-[1.0.0]: https://github.com/BrainWise-DEV/POSNext/releases/tag/v1.0.0
+[Unreleased]: https://github.com/BrainWise-DEV/omniPOS/compare/v1.15.0...HEAD
+[1.15.0]: https://github.com/BrainWise-DEV/omniPOS/compare/v1.14.0...v1.15.0
+[1.14.0]: https://github.com/BrainWise-DEV/omniPOS/compare/v1.13.0...v1.14.0
+[1.13.0]: https://github.com/BrainWise-DEV/omniPOS/compare/v1.12.0...v1.13.0
+[1.12.0]: https://github.com/BrainWise-DEV/omniPOS/compare/v1.11.0...v1.12.0
+[1.11.0]: https://github.com/BrainWise-DEV/omniPOS/compare/v1.10.0...v1.11.0
+[1.10.0]: https://github.com/BrainWise-DEV/omniPOS/compare/v1.9.0...v1.10.0
+[1.9.0]: https://github.com/BrainWise-DEV/omniPOS/compare/v1.8.0...v1.9.0
+[1.8.0]: https://github.com/BrainWise-DEV/omniPOS/compare/v1.7.1...v1.8.0
+[1.7.1]: https://github.com/BrainWise-DEV/omniPOS/compare/v1.7.0...v1.7.1
+[1.7.0]: https://github.com/BrainWise-DEV/omniPOS/compare/v1.6.1...v1.7.0
+[1.6.1]: https://github.com/BrainWise-DEV/omniPOS/compare/v1.6.0...v1.6.1
+[1.6.0]: https://github.com/BrainWise-DEV/omniPOS/compare/v1.5.0...v1.6.0
+[1.5.0]: https://github.com/BrainWise-DEV/omniPOS/compare/v1.4.0...v1.5.0
+[1.4.0]: https://github.com/BrainWise-DEV/omniPOS/compare/v1.3.0...v1.4.0
+[1.3.0]: https://github.com/BrainWise-DEV/omniPOS/compare/v1.2.0...v1.3.0
+[1.2.0]: https://github.com/BrainWise-DEV/omniPOS/compare/v1.1.1...v1.2.0
+[1.1.1]: https://github.com/BrainWise-DEV/omniPOS/compare/v1.1.0...v1.1.1
+[1.1.0]: https://github.com/BrainWise-DEV/omniPOS/compare/v1.0.2...v1.1.0
+[1.0.2]: https://github.com/BrainWise-DEV/omniPOS/compare/v1.0.1...v1.0.2
+[1.0.1]: https://github.com/BrainWise-DEV/omniPOS/compare/v1.0.0...v1.0.1
+[1.0.0]: https://github.com/BrainWise-DEV/omniPOS/releases/tag/v1.0.0
